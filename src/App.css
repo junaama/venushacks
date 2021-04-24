@@ -1,0 +1,116 @@
+.language-switch-container {
+  display: flex;
+  justify-content: flex-end
+}
+
+.search-input {
+  position: relative;
+}
+
+.search-input input[type='text'] {
+  font-size: 1rem;
+  width: 20rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.2) inset, 0 0 12px rgba(255, 255, 255, 0.1);
+  background: rgba(35, 70, 106, 0.6);
+  padding: 7px 35px 6px 10px;
+  border-radius: 4px;
+  border: 0;
+  color: #fff;
+  top: 4rem;
+  left: 0;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-left>li>a {
+  color: #fff;
+  text-transform: capitalize;
+  margin-left: 1rem;
+}
+
+.menu-left li {
+  list-style-type: none;
+  position: relative;
+}
+
+.dropdown-menu-react {
+  position: absolute;
+  background: #fff;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  width: 12rem;
+  top: 3.2rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.search-result-menu {
+  position: absolute;
+  background: #fff;
+  max-height: 300px;
+  overflow: scroll;
+  padding: 0;
+  width: 100%;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.search-result-menu li,
+.dropdown-menu-react li {
+  list-style-type: none;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-result-menu li a,
+.dropdown-menu-react li a {
+  color: #2E577B;
+  text-decoration: none;
+}
+.big-bg
+{
+  background: url('https://www.inmar.com/sites/default/files/wp-content/uploads/2017/10/professional-women.jpg');
+  background-size: cover;
+  height: calc(100vh - 69px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.half-width
+{
+  width: 30vw;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  
+}
+.white-bg
+{
+  background: #fff;
+  opacity: 0.7;
+  align-items: center;
+}
+.right-btn
+{
+  align-self: flex-start;
+}
+
+.button-sm--google{
+  background: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/social-circle-google-plus-2-128.png') #D75139 no-repeat center center;
+}
+.button-sm--linkedin{
+  background: url('https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-256.png') #127CB4 no-repeat center center;
+}
+
+.button-sm
+{
+  height: 2rem;
+  margin-bottom: 0.5rem;
+  background-size: contain;
+  
+}
