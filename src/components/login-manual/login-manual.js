@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class LoginManual extends Component {
   render() {
     return (
-      <div className='white-bg alignlogin'>
-        <h2>Add name here </h2>
+      <div className='alignlogin'>
+        <h2>She Says</h2>
         <br/>
         <br/>
         <h4>Create, discover, and share videos on our platform by joining below! </h4>
-        <form action="">
+        
+        <form action="submit">
           <div className='form-group'>
             <input type="text" className='form-control' placeholder='Email'/>
           </div>

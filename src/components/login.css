@@ -1,6 +1,18 @@
 .background{
-    color:#F0F4FF;
+    color:black;
+    background-color:#F0F4FF;
+    padding:10%;
+    width:100%;
+    height:100%;
 }
 .alignlogin{
     align-items:right;
+    padding:1%;
+    
+}
+
+.image{
+    height:40px;
+    width:120px;
+
 }
