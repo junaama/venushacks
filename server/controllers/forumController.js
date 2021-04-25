@@ -26,8 +26,8 @@ class ForumController {
     res.send(forum);
   };
 
-  getForumByforumName = async (req, res, next) => {
-    const forum = await ForumModel.findOne({ forumname: req.params.forumname });
+  getForumByTitle = async (req, res, next) => {
+    const forum = await ForumModel.findOne({ title: req.params.title });
     if (!forum) {
       throw new Error(404, "Forum not found");
     }

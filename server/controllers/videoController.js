@@ -26,8 +26,8 @@ class VideoController {
     res.send(video);
   };
 
-  getVideoByvideoName = async (req, res, next) => {
-    const video = await VideoModel.findOne({ videoname: req.params.videoname });
+  getVideoByTitle = async (req, res, next) => {
+    const video = await VideoModel.findOne({ title: req.params.title });
     if (!video) {
       throw new Error(404, "Video not found");
     }
@@ -35,9 +35,7 @@ class VideoController {
     res.send(video);
   };
 
-  getCurrentVideo = async (req, res, next) => {
-    res.send(req.currentVideo);
-  };
+
 
   createVideo = async (req, res, next) => {
     const result = await VideoModel.create(req.body);
