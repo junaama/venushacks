@@ -12,7 +12,7 @@ class VideoController {
       throw new Error(404, "Videos not found");
     }
 
-    videoList = videoList.map((video) => {});
+    videoList = videoList.map((video) => {return video});
 
     res.send(videoList);
   };

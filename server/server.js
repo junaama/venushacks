@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3306
 
 app.use('/api/users', userRouter);
 app.use('/api/video', videoRouter)
