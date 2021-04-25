@@ -1,3 +1,4 @@
+DROP DATABASE `shesays`;Forum_Comment
 CREATE DATABASE `shesays` DEFAULT CHARACTER SET latin1;
 USE `shesays`;
 
@@ -83,4 +84,22 @@ CREATE TABLE Rate(
     FOREIGN KEY (liker_uid) REFERENCES User (uid),
     FOREIGN KEY (liked_uid) REFERENCES User (uid),
     FOREIGN KEY (vid) REFERENCES Video (vid)
+);
+
+# Forum Comment
+CREATE TABLE Forum_Comment(
+	cid INTEGER NOT NULL,
+    
+    content VARCHAR(1000) NOT NULL,
+    
+    datetime_created DATETIME DEFAULT NOW(),
+    
+    uid INTEGER NOT NULL,
+    
+    fid INTEGER NOT NULL,
+    
+    PRIMARY KEY(cid),
+    
+    FOREIGN KEY (uid) REFERENCES User (uid) ON DELETE CASCADE,
+    FOREIGN KEY (fid) REFERENCES Forum (fid) ON DELETE CASCADE
 );
