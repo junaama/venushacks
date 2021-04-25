@@ -1,8 +1,8 @@
 const query = require('../db/connection.js');
 const { multipleColumnSet } = require('../utils/common');
 
-class UserModel {
-    tableName = 'User';
+class ForumModel {
+    tableName = 'Forum';
 
     find = async (params = {}) => {
         let sql = `SELECT * FROM ${this.tableName}`;
@@ -25,15 +25,15 @@ class UserModel {
 
         const result = await query(sql, [...values]);
 
-        // return back the first row (user)
+        // return back the first row (forum)
         return result[0];
     }
 
-    create = async ({ username, password, first_name, last_name, email }) => {
+    create = async ({ topic, forum_comment, datetime_created, uid }) => {
         const sql = `INSERT INTO ${this.tableName}
-        (username, password, first_name, last_name, email) VALUES (?,?,?,?,?)`;
+        (topic, forum_comment, datetime_created, uid) VALUES (?,?,?,?)`;
 
-        const result = await query(sql, [username, password, first_name, last_name, email]);
+        const result = await query(sql, [topic, forum_comment, datetime_created, uid]);
         const affectedRows = result ? result.affectedRows : 0;
 
         return affectedRows;
@@ -42,7 +42,7 @@ class UserModel {
     update = async (params, id) => {
         const { columnSet, values } = multipleColumnSet(params)
 
-        const sql = `UPDATE user SET ${columnSet} WHERE id = ?`;
+        const sql = `UPDATE forum SET ${columnSet} WHERE id = ?`;
 
         const result = await query(sql, [...values, id]);
 
@@ -59,4 +59,4 @@ class UserModel {
     }
 }
 
-module.exports = new UserModel;
+module.exports = new ForumModel;

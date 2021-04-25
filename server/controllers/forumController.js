@@ -1,4 +1,4 @@
-const UserModel = require('../models/user');
+const forumController = require('../models/forum');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -8,7 +8,7 @@ dotenv.config();
 /******************************************************************************
  *                              User Controller
  ******************************************************************************/
-class UserController {
+ class UserController {
     getAllUsers = async (req, res, next) => {
         let userList = await UserModel.find();
         if (!userList.length) {
@@ -144,4 +144,4 @@ class UserController {
 /******************************************************************************
  *                               Export
  ******************************************************************************/
-module.exports = new UserController;
+module.exports = new forumController;
