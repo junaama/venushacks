@@ -1,5 +1,4 @@
-const UserModel = require('../models/user.model');
-const HttpException = require('../utils/HttpException.utils');
+const UserModel = require('../models/user');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -13,7 +12,7 @@ class UserController {
     getAllUsers = async (req, res, next) => {
         let userList = await UserModel.find();
         if (!userList.length) {
-            throw new HttpException(404, 'Users not found');
+            throw new Error(404, 'Users not found');
         }
 
         userList = userList.map(user => {
@@ -27,7 +26,7 @@ class UserController {
     getUserById = async (req, res, next) => {
         const user = await UserModel.findOne({ id: req.params.id });
         if (!user) {
-            throw new HttpException(404, 'User not found');
+            throw new Error(404, 'User not found');
         }
 
         const { password, ...userWithoutPassword } = user;
@@ -38,7 +37,7 @@ class UserController {
     getUserByuserName = async (req, res, next) => {
         const user = await UserModel.findOne({ username: req.params.username });
         if (!user) {
-            throw new HttpException(404, 'User not found');
+            throw new Error(404, 'User not found');
         }
 
         const { password, ...userWithoutPassword } = user;
@@ -60,7 +59,7 @@ class UserController {
         const result = await UserModel.create(req.body);
 
         if (!result) {
-            throw new HttpException(500, 'Something went wrong');
+            throw new Error(500, 'Something went wrong');
         }
 
         res.status(201).send('User was created!');
@@ -78,7 +77,7 @@ class UserController {
         const result = await UserModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
-            throw new HttpException(404, 'Something went wrong');
+            throw new Error(404, 'Something went wrong');
         }
 
         const { affectedRows, changedRows, info } = result;
@@ -92,7 +91,7 @@ class UserController {
     deleteUser = async (req, res, next) => {
         const result = await UserModel.delete(req.params.id);
         if (!result) {
-            throw new HttpException(404, 'User not found');
+            throw new Error(404, 'User not found');
         }
         res.send('User has been deleted');
     };
@@ -105,13 +104,13 @@ class UserController {
         const user = await UserModel.findOne({ email });
 
         if (!user) {
-            throw new HttpException(401, 'Unable to login!');
+            throw new Error(401, 'Unable to login!');
         }
 
         const isMatch = await bcrypt.compare(pass, user.password);
 
         if (!isMatch) {
-            throw new HttpException(401, 'Incorrect password!');
+            throw new Error(401, 'Incorrect password!');
         }
 
         // user matched!
@@ -128,7 +127,7 @@ class UserController {
     checkValidation = (req) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            throw new HttpException(400, 'Validation faild', errors);
+            throw new Error(400, 'Validation faild', errors);
         }
     }
 

@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const Role = require('../../utils/userRoles.utils');
+const Role = require('../utils/userRoles');
 
 
 exports.createUserSchema = [
