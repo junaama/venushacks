@@ -5,7 +5,7 @@ import "./login.css";
 class Login extends Component {
   render() {
     return (
-      <div className="container-fluid background">
+      <div className="background">
         <div className="row">
           <div className="col">
             <div className="box">
@@ -21,8 +21,11 @@ class Login extends Component {
             </right>
           </div>
         </div>
-
-        <br />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     );
   }
