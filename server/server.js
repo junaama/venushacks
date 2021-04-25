@@ -14,8 +14,8 @@ app.options("*", cors());
 const port = process.env.PORT || 3000
 
 app.use('/api/users', userRouter);
-app.use('/api/video', videoRouter)
-app.use('/api/forum', forumRouter);
+// app.use('/api/video', videoRouter)
+// app.use('/api/forum', forumRouter);
 
 app.listen(port, ()=> {
     console.log(`🚀 Server running on port ${port}!`)

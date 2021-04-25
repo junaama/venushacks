@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const auth = require('../middleware/auth');
-const Role = require('../utils/UserRoles');
+const Role = require('../utils/userRoles');
 const awaitHandlerFactory = require('../middleware/handler');
 
 const { createUserSchema, updateUserSchema, validateLogin } = require('../middleware/userValidator');

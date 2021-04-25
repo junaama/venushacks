@@ -1,147 +1,82 @@
-const forumController = require('../models/forum');
-const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const ForumModel = require("../models/forum");
+const dotenv = require("dotenv");
 dotenv.config();
 
 /******************************************************************************
- *                              User Controller
+ *                              Forum Controller
  ******************************************************************************/
- class UserController {
-    getAllUsers = async (req, res, next) => {
-        let userList = await UserModel.find();
-        if (!userList.length) {
-            throw new Error(404, 'Users not found');
-        }
-
-        userList = userList.map(user => {
-            const { password, ...userWithoutPassword } = user;
-            return userWithoutPassword;
-        });
-
-        res.send(userList);
-    };
-
-    getUserById = async (req, res, next) => {
-        const user = await UserModel.findOne({ id: req.params.id });
-        if (!user) {
-            throw new Error(404, 'User not found');
-        }
-
-        const { password, ...userWithoutPassword } = user;
-
-        res.send(userWithoutPassword);
-    };
-
-    getUserByuserName = async (req, res, next) => {
-        const user = await UserModel.findOne({ username: req.params.username });
-        if (!user) {
-            throw new Error(404, 'User not found');
-        }
-
-        const { password, ...userWithoutPassword } = user;
-
-        res.send(userWithoutPassword);
-    };
-
-    getCurrentUser = async (req, res, next) => {
-        const { password, ...userWithoutPassword } = req.currentUser;
-
-        res.send(userWithoutPassword);
-    };
-
-    createUser = async (req, res, next) => {
-        this.checkValidation(req);
-
-        await this.hashPassword(req);
-
-        const result = await UserModel.create(req.body);
-
-        if (!result) {
-            throw new Error(500, 'Something went wrong');
-        }
-
-        res.status(201).send('User was created!');
-    };
-
-    updateUser = async (req, res, next) => {
-        this.checkValidation(req);
-
-        await this.hashPassword(req);
-
-        const { confirm_password, ...restOfUpdates } = req.body;
-
-        // do the update query and get the result
-        // it can be partial edit
-        const result = await UserModel.update(restOfUpdates, req.params.id);
-
-        if (!result) {
-            throw new Error(404, 'Something went wrong');
-        }
-
-        const { affectedRows, changedRows, info } = result;
-
-        const message = !affectedRows ? 'User not found' :
-            affectedRows && changedRows ? 'User updated successfully' : 'Updated faild';
-
-        res.send({ message, info });
-    };
-
-    deleteUser = async (req, res, next) => {
-        const result = await UserModel.delete(req.params.id);
-        if (!result) {
-            throw new Error(404, 'User not found');
-        }
-        res.send('User has been deleted');
-    };
-
-    userLogin = async (req, res, next) => {
-        this.checkValidation(req);
-
-        const { email, password: pass } = req.body;
-
-        const user = await UserModel.findOne({ email });
-
-        if (!user) {
-            throw new Error(401, 'Unable to login!');
-        }
-
-        const isMatch = await bcrypt.compare(pass, user.password);
-
-        if (!isMatch) {
-            throw new Error(401, 'Incorrect password!');
-        }
-
-        // user matched!
-        const secretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({ user_id: user.id.toString() }, secretKey, {
-            expiresIn: '24h'
-        });
-
-        const { password, ...userWithoutPassword } = user;
-
-        res.send({ ...userWithoutPassword, token });
-    };
-
-    checkValidation = (req) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            throw new Error(400, 'Validation faild', errors);
-        }
+class ForumController {
+  getAllForums = async (req, res, next) => {
+    let forumList = await ForumModel.find();
+    if (!forumList.length) {
+      throw new Error(404, "Forums not found");
     }
 
-    // hash password if it exists
-    hashPassword = async (req) => {
-        if (req.body.password) {
-            req.body.password = await bcrypt.hash(req.body.password, 8);
-        }
+    forumList = forumList.map((forum) => {});
+
+    res.send(forumList);
+  };
+
+  getForumById = async (req, res, next) => {
+    const forum = await ForumModel.findOne({ id: req.params.id });
+    if (!forum) {
+      throw new Error(404, "Forum not found");
     }
+
+    res.send(forum);
+  };
+
+  getForumByforumName = async (req, res, next) => {
+    const forum = await ForumModel.findOne({ forumname: req.params.forumname });
+    if (!forum) {
+      throw new Error(404, "Forum not found");
+    }
+
+    res.send(forum);
+  };
+
+  getCurrentForum = async (req, res, next) => {
+    res.send(req.currentForum);
+  };
+
+  createForum = async (req, res, next) => {
+    const result = await ForumModel.create(req.body);
+
+    if (!result) {
+      throw new Error(500, "Something went wrong");
+    }
+
+    res.status(201).send("Forum was created!");
+  };
+
+  updateForum = async (req, res, next) => {
+    const result = await ForumModel.update(req.body, req.params.id);
+
+    if (!result) {
+      throw new Error(404, "Something went wrong");
+    }
+
+    const { affectedRows, changedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Forum not found"
+      : affectedRows && changedRows
+      ? "Forum updated successfully"
+      : "Updated failedd";
+
+    res.send({ message, info });
+  };
+
+  deleteForum = async (req, res, next) => {
+    const result = await ForumModel.delete(req.params.id);
+    if (!result) {
+      throw new Error(404, "Forum not found");
+    }
+    res.send("Forum has been deleted");
+  };
 }
-
-
 
 /******************************************************************************
  *                               Export
  ******************************************************************************/
-module.exports = new forumController;
+module.exports = new ForumController();
